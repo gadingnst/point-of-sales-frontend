@@ -20,9 +20,7 @@ class Header extends Component {
         this.setState({
             userEmail: '',
             userPassword: '',
-            userName: '',
-            loginModal: false,
-            registerModal: false
+            loginModal: false
         })
     }
 
