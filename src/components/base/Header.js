@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { login, logout } from '../../redux/actions/auth'
 import { clearCart } from '../../redux/actions/cart'
 
+import axios from '../../utils/axios'
+
 const mapStateToProps = ({ auth }) => ({ auth })
 
 class Header extends Component {
@@ -27,18 +29,15 @@ class Header extends Component {
 
     async onLogin() {
         try {
-            await this.props.dispatch(login({
+            const { value: { data } } = await this.props.dispatch(login({
                 email: this.state.userEmail,
                 password: this.state.userPassword
             }))
-            notification.success({
-                message: 'Success logged in'
-            })
+            axios.defaults.headers.common['authorization'] = `Bearer ${data.token}`
+            notification.success({ message: 'Success logged in' })
             this.clearModal()
         } catch ({ data: response }) {
-            notification.error({
-                message: response.message
-            })
+            notification.error({ message: response.message })
             this.setState({ userPassword: '' })
         }
     }

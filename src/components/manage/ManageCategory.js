@@ -29,7 +29,7 @@ class ManageCategory extends Component {
     
     constructor(props) {
         super(props)
-        this.state= {
+        this.state = {
             name: '',
             current: '',
             modalType: 'create',
