@@ -52,7 +52,7 @@ class Home extends Component {
             category = this.state.category,
             sort = this.state.sort,
             order = this.state.order,
-            page = this.state.page
+            page = 1
         } = opts
         
         this.setState({
@@ -138,6 +138,7 @@ class Home extends Component {
                     <div style={{ marginTop: '25px', textAlign: 'right' }}>
                         <Pagination
                             disabled={this.state.loading}
+                            current={this.state.page}
                             onChange={page => this.fetchProducts({ page })}
                             style={{ margin: 'auto' }}
                             total={this.state.totalProducts}
