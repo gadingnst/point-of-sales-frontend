@@ -1,29 +1,9 @@
 import React, { Component } from 'react'
-import { Row, Col, Modal, Input, Button, Table, Popconfirm, message } from 'antd'
+import { Row, Col, Button, Table, Popconfirm, message } from 'antd'
+import ModalInput from './ModalCategory'
 import IconText from '../../components/base/IconText'
 
 import axios from '../../utils/axios'
-
-const ModalInput = props => (
-    <Modal
-        title={`${String(props.type).toUpperCase()} Category`}
-        visible={props.visible}
-        confirmLoading={props.loading}
-        onOk={props.actions.handleOk.bind(this, { name: props.name, id: props.current }, props.type)}
-        onCancel={props.actions.handleCancel.bind(this)}
-    >
-        <Row style={{ padding: '10px' }}>
-            <Col span={6}><b>Name</b></Col>
-            <Col span={18}>
-                <Input
-                    value={props.name}
-                    onChange={e => props.change.name(e.target.value)}
-                    placeholder="Enter category name"
-                />
-            </Col>
-        </Row>
-    </Modal>
-)
 
 class ManageCategory extends Component {
     
@@ -83,7 +63,7 @@ class ManageCategory extends Component {
     }
 
     deleteCategory(data) {
-        const hide = message.loading('Action in progress..', 0)
+        const hide = message.loading('Deleting in progress..', 0)
         axios.delete(`/api/category/${data.id}`)
             .then(({ data: { data: res } }) => {
                 hide()
@@ -92,7 +72,7 @@ class ManageCategory extends Component {
                     modalLoading: false,
                     modalVisible: false
                 })
-                message.success(`Success deleting product ${res.name}!`)
+                message.success(`Success deleting category ${res.name}!`)
             })
             .catch(err => {
                 hide()
@@ -166,6 +146,7 @@ class ManageCategory extends Component {
                     <Col span={24} style={{ padding: '10px' }}>
                         <Table
                             columns={columns}
+                            loading={this.props.loading}
                             pagination={{ position: 'both', pageSize: 8 }}
                             dataSource={this.props.data.map((item, i) => ({ ...item, key: i + 1 }))}
                         />

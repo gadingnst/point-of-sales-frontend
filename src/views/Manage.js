@@ -51,6 +51,7 @@ class Manage extends Component {
                     <ManageProduct
                         loading={this.state.loading}
                         data={this.state.products}
+                        categories={this.state.categories}
                         onUpdate={products => this.setState({ products })}
                     />
                 </TabPane>
