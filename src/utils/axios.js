@@ -9,8 +9,6 @@ try {
     token = null
 }
 
-console.log(token)
-
 export default axios.create({
     baseURL: process.env.REACT_APP_API_BASEURL || 'http://localhost:9600',
     headers: {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Result, Tabs, Icon } from 'antd'
+import { Result, Tabs } from 'antd'
 import { connect } from 'react-redux'
 
 import axios from '../utils/axios'
-
+import IconText from '../components/base/IconText'
 import ManageCatogory from '../components/manage/ManageCategory'
 import ManageProduct from '../components/manage/ManageProduct'
 
@@ -47,14 +47,14 @@ class Manage extends Component {
         }
         return (
             <Tabs defaultActiveKey="products" style={{ background: '#FFF' }}>
-                <TabPane tab={<span><Icon type="shop" />Products</span>} key="products">
+                <TabPane tab={<IconText type="shop" text="Products" />} key="products">
                     <ManageProduct
                         loading={this.state.loading}
                         data={this.state.products}
                         onUpdate={products => this.setState({ products })}
                     />
                 </TabPane>
-                <TabPane tab={<span><Icon type="profile" />Categories</span>} key="categories">
+                <TabPane tab={<IconText type="profile" text="Categories" />} key="categories">
                     <ManageCatogory
                         loading={this.state.loading}
                         data={this.state.categories}
