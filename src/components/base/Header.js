@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { Layout, Col, Row, Button, Modal, Icon, Input, Popconfirm, notification } from 'antd'
 import { connect } from 'react-redux'
-import { login, logout } from '../redux/actions/auth'
+import { login, logout } from '../../redux/actions/auth'
+import { clearCart } from '../../redux/actions/cart'
 
 const mapStateToProps = ({ auth }) => ({ auth })
 
@@ -44,6 +45,7 @@ class Header extends Component {
 
     onLogout() {
         this.props.dispatch(logout())
+        this.props.dispatch(clearCart())
         notification.warning({
             message: 'Logged out!'
         })

@@ -1,7 +1,15 @@
 import axios from 'axios'
 
-const { auth } = JSON.parse(window.localStorage.getItem('persist:root')) || {}
-const { token } = JSON.parse(auth) || null
+let auth, token
+
+try {
+    auth = JSON.parse(window.localStorage.getItem('persist:root')).auth
+    token = JSON.parse(auth).token
+} catch (err) {
+    token = null
+}
+
+console.log(token)
 
 export default axios.create({
     baseURL: process.env.REACT_APP_API_BASEURL || 'http://localhost:9600',

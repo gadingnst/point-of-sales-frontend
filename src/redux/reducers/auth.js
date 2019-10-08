@@ -2,8 +2,7 @@ const initial = {
     user: {},
     token: null,
     loggedIn: false,
-    isLoading: false,
-    error: false
+    isLoading: false
 }
 
 export default (state = initial, action) => {
@@ -18,16 +17,13 @@ export default (state = initial, action) => {
                 ...state,
                 isLoading: false,
                 loggedIn: true,
-                error: false,
                 user: action.payload.data.user,
                 token: action.payload.data.token
             }
         case 'LOGIN_USER_REJECTED':
             return {
                 ...state,
-                isLoading: false,
-                error: true,
-                message: action.payload
+                isLoading: false
             }
         case 'LOGOUT_USER':
             return {
