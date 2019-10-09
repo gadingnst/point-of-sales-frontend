@@ -5,10 +5,20 @@ import { rupiah } from '../../utils/helpers'
 
 export default props => {
     const checkoutPrice = props.data.reduce((acc, cur) => acc + cur.totalPrice, 0)
+    const receipt = props.receipt
     const fee = checkoutPrice * 0.10
     const amount = checkoutPrice + fee
-    const receipt = `#${Date.now()}`
     const user = useSelector(({ auth }) => auth.user)
+    const data = {
+        amount,
+        receipt,
+        user: user.id,
+        orders: props.data.map(item => ({
+            product: item.id,
+            quantity: item.qty,
+            price: item.totalPrice
+        })), 
+    }
 
     return (
         <Modal
@@ -20,7 +30,7 @@ export default props => {
                 <Button key="back" onClick={() => props.onCancel()}>
                     Back
                 </Button>,
-                <Button key="submit" type="primary" loading={props.loading} onClick={() => props.onCheckout(props.data, amount)}>
+                <Button key="submit" type="primary" loading={props.loading} onClick={() => props.onCheckout(data)}>
                     Checkout
                 </Button>
             ]}
@@ -30,7 +40,7 @@ export default props => {
                     Cashier: <br /> <strong>{user.name}</strong>
                 </Col>
                 <Col span={12} style={{ textAlign: 'right' }}>
-                    Receipt no: <br /> <strong>{receipt}</strong>
+                    Receipt no: <br /> <strong>{`#${receipt}`}</strong>
                 </Col>
             </Row>
             {props.data.map(item => (

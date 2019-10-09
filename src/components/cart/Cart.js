@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { Row, Col, Button, Drawer } from 'antd'
+import { Row, Col, Button, Drawer, Modal } from 'antd'
 import { connect } from 'react-redux'
+
+import axios from '../../utils/axios'
 import { clearCart } from '../../redux/actions/cart'
 import { rupiah } from '../../utils/helpers'
 
@@ -20,12 +22,42 @@ class Cart extends Component {
         this.state = {
             visible: false,
             loading: false,
-            checkoutVisible: false
+            checkoutVisible: false,
+            receipt: Date.now()
         }
     }
 
-    onCheckout(data, amount) {
-        console.log(data, amount)
+    onCheckout(data) {
+        this.setState({ loading: true })
+        axios.post('/api/checkout', data)
+            .then(({ data: { data: res } }) => {
+                Modal.success({
+                    title: `Success Checkout!`,
+                    content: (
+                        <>
+                            <p>Receipt: #{res.checkout.receipt}</p>
+                            <p>Amount: {rupiah(res.checkout.amount)}</p>
+                        </>
+                    ),
+                    onOk: () => {
+                        this.props.dispatch(clearCart())
+                        this.setState({
+                            visible: false,
+                            checkoutVisible: false,
+                            receipt: Date.now()
+                        })
+                    }
+                })
+            })
+            .catch(({ response }) => {
+                Modal.error({
+                    title: `Error: ${response.data.code} ${response.data.status}`,
+                    content: response.data.message,
+                })
+            })
+            .finally(() => {
+                this.setState({ loading: false })
+            })
     }
 
     render() {
@@ -35,6 +67,7 @@ class Cart extends Component {
                     data={this.props.carts}
                     visible={this.state.checkoutVisible}
                     loading={this.state.loading}
+                    receipt={String(this.state.receipt)}
                     onCancel={() => this.setState({ checkoutVisible: false })}
                     onCheckout={(data, amount) => this.onCheckout(data, amount)}
                 />
