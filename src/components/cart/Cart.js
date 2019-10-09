@@ -1,56 +1,44 @@
 import React, { Component } from 'react'
-import { Row, Col, Button, Badge, Drawer } from 'antd'
+import { Row, Col, Button, Drawer } from 'antd'
 import { connect } from 'react-redux'
 import { clearCart } from '../../redux/actions/cart'
 import { rupiah } from '../../utils/helpers'
 
 import CartList from './CartList'
+import Checkout from './Checkout'
+import ToggleCart from './ToggleCart'
 
 const mapState = ({ cart, auth }) => ({
     carts: cart.data,
     isLoggedIn: auth.loggedIn
 })
 
-const BtnToggleCart = (props) => {
-    if (props.isLoggedIn && props.countCart > 0) {
-        return (
-            <Row style={{ position: 'fixed', bottom: '22.5px', zIndex: 1 }}>
-                <Col span={24}>
-                    <Badge count={props.countCart}>
-                        <Button
-                            style={{ width: '100%' }}
-                            type="primary"
-                            icon="shopping-cart"
-                            size="large"
-                            onClick={() => props.onClick()}
-                        >
-                            Cart
-                        </Button>
-                    </Badge>
-                </Col>
-            </Row>
-        )
-    }
-    return false
-}
-
 class Cart extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            visible: false
+            visible: false,
+            loading: false,
+            checkoutVisible: false
         }
     }
 
-    onCheckout(data) {
-        window.alert(JSON.stringify(data))
+    onCheckout(data, amount) {
+        console.log(data, amount)
     }
 
     render() {
         return (
             <>
-                <BtnToggleCart
+                <Checkout
+                    data={this.props.carts}
+                    visible={this.state.checkoutVisible}
+                    loading={this.state.loading}
+                    onCancel={() => this.setState({ checkoutVisible: false })}
+                    onCheckout={(data, amount) => this.onCheckout(data, amount)}
+                />
+                <ToggleCart
                     isLoggedIn={this.props.isLoggedIn}
                     countCart={this.props.carts.length}
                     onClick={() => this.setState({ visible: true })}
@@ -78,7 +66,7 @@ class Cart extends Component {
                                         type="primary"
                                         style={{ width: '100%' }}
                                         disabled={!!!this.props.carts.length}
-                                        onClick={() => this.onCheckout(this.props.carts)}
+                                        onClick={() => this.setState({ checkoutVisible: true })}
                                     >
                                         Checkout
                                     </Button>

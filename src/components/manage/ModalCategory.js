@@ -4,6 +4,7 @@ import { Row, Col, Modal, Input } from 'antd'
 export default props => (
     <Modal
         title={`${String(props.type).toUpperCase()} Category`}
+        style={{ top: 20 }}
         visible={props.visible}
         confirmLoading={props.loading}
         onOk={props.actions.handleOk.bind(this, { name: props.name, id: props.current }, props.type)}

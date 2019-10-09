@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Result, Tabs } from 'antd'
 import { connect } from 'react-redux'
-
 import axios from '../utils/axios'
 import IconText from '../components/base/IconText'
 import ManageCatogory from '../components/manage/ManageCategory'

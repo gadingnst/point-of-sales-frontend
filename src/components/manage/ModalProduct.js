@@ -24,6 +24,7 @@ export default props => {
     return (
         <Modal
             title={`${String(props.type).toUpperCase()} Product`}
+            style={{ top: 20 }}
             visible={props.visible}
             confirmLoading={props.loading}
             onOk={props.actions.handleOk.bind(this, { ...data }, props.type)}
