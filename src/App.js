@@ -9,6 +9,7 @@ import Cart from './components/cart/Cart'
 // views components
 import Home from './views/Home'
 import Manage from './views/Manage'
+import History from './views/History'
 
 export default class extends Component {
     render() {
@@ -22,6 +23,7 @@ export default class extends Component {
                             <Cart />
                             <Switch>
                                 <Route exact path="/" component={Home} />
+                                <Route path="/history" component={History} />
                                 <Route path="/manage" component={Manage} />
                             </Switch>
                         </Layout.Content>

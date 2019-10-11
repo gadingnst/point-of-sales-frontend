@@ -11,3 +11,14 @@ export const rupiah = (number = 0) => {
         return 0
     }
 }
+
+export const formatDateID = date => {
+    date = date ? new Date(date) : new Date()
+    return date.toLocaleString('en-ID', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'Asia/Jakarta'
+    })
+}

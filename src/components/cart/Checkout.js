@@ -12,9 +12,9 @@ export default props => {
     const data = {
         amount,
         receipt,
-        user: user.id,
+        user_id: user.id,
         orders: props.data.map(item => ({
-            product: item.id,
+            product_id: item.id,
             quantity: item.qty,
             price: item.totalPrice
         })), 
