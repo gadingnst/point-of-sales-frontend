@@ -11,7 +11,7 @@ class ListHistory extends Component {
         super(props)
         this.state = {
             loading: true,
-            recent: 'weekly',
+            recent: 'daily',
             page: 1,
             totalPage: 1,
             totalRows: 0,
@@ -25,14 +25,16 @@ class ListHistory extends Component {
     }
 
     fetchOrders({ page = 1, recent = this.state.recent, limit = this.state.limit } = {}) {
-        this.setState({ page, recent, limit })
+        this.setState({ page, recent, limit, loading: true })
         return axios.get(`/api/checkout?limit=${limit}&recent=${recent}&page=${page}`)
             .then(({ data: { data } }) => {
-                this.setState({
-                    data: data.rows,
-                    totalPage: data.totalPage,
-                    totalRows: data.totalRows
-                })
+                setTimeout(() => {
+                    this.setState({
+                        data: data.rows,
+                        totalPage: data.totalPage,
+                        totalRows: data.totalRows
+                    })
+                }, 500)
             })
             .catch(({ response }) => {
                 notification.error({
