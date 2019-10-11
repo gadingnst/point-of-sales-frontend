@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Table, Tag, Modal, List, Avatar, notification } from 'antd'
+import { Row, Col, Table, Tag, Modal, List, Avatar, Select, notification } from 'antd'
 
 import IconText from '../base/IconText'
 import axios from '../../utils/axios'
@@ -22,6 +22,10 @@ class ListHistory extends Component {
 
     componentDidMount() {
         this.fetchOrders()
+    }
+
+    changeRecentOrder(recent) {
+        this.fetchOrders({ recent })
     }
 
     fetchOrders({ page = 1, recent = this.state.recent, limit = this.state.limit } = {}) {
@@ -128,6 +132,14 @@ class ListHistory extends Component {
         ]
         return (
             <Row>
+                <Col span={6} style={{ padding: '10px' }}>
+                    <Select value={this.state.recent} style={{ width: '100%' }} onChange={value => this.changeRecentOrder(value)}>
+                        <Select.Option value="daily">Daily</Select.Option>
+                        <Select.Option value="weekly">Weekly</Select.Option>
+                        <Select.Option value="monthly">Monthly</Select.Option>
+                        <Select.Option value="yearly">Yearly</Select.Option>
+                    </Select>
+                </Col>
                 <Col span={24} style={{ padding: '10px' }}>
                     <Table
                         loading={this.state.loading}

@@ -11,8 +11,7 @@ class Statistic extends Component {
         super(props)
         this.state = {
             mode: 'weekly',
-            loadingRevenue: true,
-            loadingRecent: true,
+            loading: true,
             totalRecentOrders: 0,
             totalRecentIncome: 0,
             totalLastOrders: 0,
@@ -93,7 +92,7 @@ class Statistic extends Component {
     }
 
     fetchRevenue(mode = 'weekly') {
-        this.setState({ loadingRevenue: true })
+        this.setState({ loading: true })
         return axios.get(`/api/checkout/statistic?mode=${mode}`)
             .then(({ data: { data } }) => {
                 this.setState({
@@ -180,6 +179,7 @@ class Statistic extends Component {
                 <Row>
                     <Col sm={24} md={8} style={{ padding: '10px' }}>
                         <CardRevenue
+                            loading={this.state.loading}
                             title="Today's income"
                             result={rupiah(this.state.todayIncome)}
                             subtitle={`${this.calculateImprovePerc(this.state.todayIncome, this.state.yesterdayIncome)} yesterday`}
@@ -191,6 +191,7 @@ class Statistic extends Component {
                     </Col>
                     <Col sm={24} md={8} style={{ padding: '10px' }}>
                         <CardRevenue
+                            loading={this.state.loading}
                             title={`This ${this.state.mode.replace(/ly/, '')}'s Orders`}
                             result={`${this.state.totalRecentOrders} Orders`}
                             subtitle={`${this.calculateImprovePerc(this.state.totalRecentOrders, this.state.totalLastOrders)} last ${this.state.mode.replace(/ly/, '')}`}
@@ -202,6 +203,7 @@ class Statistic extends Component {
                     </Col>
                     <Col sm={24} md={8} style={{ padding: '10px' }}>
                         <CardRevenue
+                            loading={this.state.loading}
                             title={`This ${this.state.mode.replace(/ly/, '')}'s Income`}
                             result={rupiah(this.state.totalRecentIncome)}
                             subtitle={`${this.calculateImprovePerc(this.state.totalRecentIncome, this.state.totalLastIncome)} last ${this.state.mode.replace(/ly/, '')}`}
