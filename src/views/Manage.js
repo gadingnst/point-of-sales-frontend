@@ -5,6 +5,7 @@ import axios from '../utils/axios'
 import IconText from '../components/base/IconText'
 import ManageCatogory from '../components/manage/ManageCategory'
 import ManageProduct from '../components/manage/ManageProduct'
+import ManageUser from '../components/manage/ManageUser'
 
 const { TabPane } = Tabs
 
@@ -60,6 +61,9 @@ class Manage extends Component {
                         data={this.state.categories}
                         onUpdate={categories => this.setState({ categories })}
                     />
+                </TabPane>
+                <TabPane tab={<IconText type="user" text="Users" />} key="users">
+                    <ManageUser />
                 </TabPane>
             </Tabs>
         )

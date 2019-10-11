@@ -9,9 +9,7 @@ try {
     token = null
 }
 
-export default axios.create({
-    baseURL: process.env.REACT_APP_API_BASEURL || 'http://localhost:9600',
-    headers: {
-        authorization: `Bearer ${token}`
-    }
-})
+axios.defaults.baseURL = process.env.REACT_APP_API_BASEURL || 'http://localhost:9600'
+axios.defaults.headers.common['authorization'] = `Bearer ${token}`
+
+export default axios
