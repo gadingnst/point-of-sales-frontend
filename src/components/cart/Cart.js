@@ -4,13 +4,15 @@ import { connect } from 'react-redux'
 
 import axios from '../../utils/axios'
 import { clearCart } from '../../redux/actions/cart'
+import { setProduct } from '../../redux/actions/product'
 import { rupiah } from '../../utils/helpers'
 
 import CartList from './CartList'
 import Checkout from './Checkout'
 import ToggleCart from './ToggleCart'
 
-const mapState = ({ cart, auth }) => ({
+const mapState = ({ cart, product, auth }) => ({
+    products: product.data,
     carts: cart.data,
     isLoggedIn: auth.loggedIn
 })
@@ -31,6 +33,14 @@ class Cart extends Component {
         this.setState({ loading: true })
         axios.post('/api/checkout', data)
             .then(({ data: { data: res } }) => {
+                res.orders.forEach(order => {
+                    const idx = this.props.products.findIndex(product => product.id === order.product_id)
+                    if (idx > -1) {
+                        const products = [...this.props.products]
+                        products[idx].stock = products[idx].stock - order.quantity
+                        this.props.dispatch(setProduct(products))
+                    }
+                })
                 Modal.success({
                     title: `Success Checkout!`,
                     content: (

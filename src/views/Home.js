@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { 
     Row,
     Col,
@@ -11,12 +12,17 @@ import {
     Spin
 } from 'antd'
 
+import { setProduct } from '../redux/actions/product'
 import axios from '../utils/axios'
 import ProductCard from '../components/product/ProductCard'
 
 const { Search } = Input
 const { Option } = Select
 const sorting = ['Name', 'Category', 'Price', 'Created at', 'Updated at']
+
+const mapState = ({ product }) => ({
+    products: product.data
+})
 
 class Home extends Component {
     constructor(props) {
@@ -31,8 +37,7 @@ class Home extends Component {
             sort: 'updatedat',
             order: 'desc',
             category: undefined,
-            categories: [],
-            products: [{}, {}, {}, {}, {}, {}]
+            categories: []
         }
     }
 
@@ -64,15 +69,16 @@ class Home extends Component {
             axios.get(`/api/product?limit=${this.state.limitProducts}&page=${page}&sort=${sort}-${order}&search=${search}${category ? `&category=${category}` : ''}`)
                 .then(({ data: { data } }) => {
                     setTimeout(() => {
+                        this.props.dispatch(setProduct(data.rows.map(item => ({
+                            ...item,
+                            qty: 1,
+                            totalPrice: item.price
+                        }))))
+
                         this.setState({
                             loading: false,
                             totalPage: data.totalPage,
-                            totalProducts: data.totalRows,
-                            products: data.rows.map(item => ({
-                                ...item,
-                                qty: 1,
-                                totalPrice: item.price
-                            }))
+                            totalProducts: data.totalRows
                         })
                         resolve(data)
                     }, 800)
@@ -118,13 +124,13 @@ class Home extends Component {
             </>
         )
         
-        if (!!this.state.products.length) {
+        if (!!this.props.products.length) {
             return (
                 <>
                     <Tools />
                     <Row>
                     {
-                        this.state.products.map((data, i) => (
+                        this.props.products.map((data, i) => (
                             <Col key={i} style={{ padding: '5px' }} xs={24} sm={24} md={8} lg={6}>
                                 <ProductCard
                                     key={i}
@@ -162,4 +168,4 @@ class Home extends Component {
     }
 }
 
-export default Home
+export default connect(mapState)(Home)
