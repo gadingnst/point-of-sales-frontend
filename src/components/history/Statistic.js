@@ -149,14 +149,6 @@ class Statistic extends Component {
                 dataIndex: 'User.name'
             },
             {
-                title: 'Date',
-                key: 'date',
-                dataIndex: 'created_at',
-                render: (text, record) => (
-                    <span>{formatDateID(record.created_at)}</span>
-                )
-            },
-            {
                 title: 'Orders',
                 key: 'orders',
                 dataIndex: 'Orders',
@@ -253,7 +245,7 @@ class Statistic extends Component {
                     }}
                 >
                     <Col span={24}>
-                        <h1 style={{ fontSize: '18pt' }}><b>Recent Orders</b></h1>
+                        <h1 style={{ fontSize: '18pt' }}><b>Today Recent Orders</b></h1>
                     </Col>
                     <Col span={24}>
                         <Table
