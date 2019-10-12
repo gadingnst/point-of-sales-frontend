@@ -15,7 +15,7 @@ class ListHistory extends Component {
             page: 1,
             totalPage: 1,
             totalRows: 0,
-            limit: 25,
+            limit: 10,
             data: []
         }
     }

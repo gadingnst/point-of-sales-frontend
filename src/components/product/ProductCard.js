@@ -72,7 +72,7 @@ class ProductCard extends Component {
                 ]}
                 cover={
                     !this.props.loading
-                        ? <img style={{ width: '100%', height: '225px', objectFit: 'cover' }} alt={data.name} src={`${process.env.REACT_APP_API_BASEURL}/files/image/product/${data.image}`} />
+                        ? <img style={{ width: '100%', height: '225px', objectFit: 'contain' }} alt={data.name} src={`${process.env.REACT_APP_API_BASEURL}/files/image/product/${data.image}`} />
                         : ''
                 }
             >

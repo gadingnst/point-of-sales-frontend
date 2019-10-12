@@ -19,7 +19,7 @@ class CartItem extends Component {
     render() {
         const { item: data, index: i } = this.props
         return (
-            <Row key={i}>
+            <Row key={i} style={{ padding: '5px 0' }}>
                 <Col span={6}>
                     <Avatar shape="square" size={86} src={`${process.env.REACT_APP_API_BASEURL}/files/image/product/${data.image}`} />
                 </Col>
