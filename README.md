@@ -21,9 +21,9 @@
     - [Checkout](#checkout)
     - [CRUD Product](#crud-product)
     - [CRUD Category](#crud-category)
-      - [CRUD User](#crud-user)
-      - [Recent History](#recent-history)
-      - [Statistic Income and Orders](#statistic-income-and-orders)
+    - [CRUD User](#crud-user)
+    - [Recent History](#recent-history)
+    - [Statistic Income and Orders](#statistic-income-and-orders)
 
 ## TODO Tasks
 - [x] CRUD Products via web
@@ -87,13 +87,13 @@ $ yarn build
 ### CRUD Category
 [![View CRUD product](https://raw.githubusercontent.com/sutanlab/point-of-sales-frontend/master/capture/crud-category.png)](https://raw.githubusercontent.com/sutanlab/point-of-sales-frontend/master/capture/crud-category.png)
 
-#### CRUD User
+### CRUD User
 [![View CRUD product](https://raw.githubusercontent.com/sutanlab/point-of-sales-frontend/master/capture/crud-user.png)](https://raw.githubusercontent.com/sutanlab/point-of-sales-frontend/master/capture/crud-user.png)
 
-#### Recent History
+### Recent History
 [![View CRUD product](https://raw.githubusercontent.com/sutanlab/point-of-sales-frontend/master/capture/history.png)](https://raw.githubusercontent.com/sutanlab/point-of-sales-frontend/master/capture/history.png)
 
-#### Statistic Income and Orders
+### Statistic Income and Orders
 [![View CRUD product](https://raw.githubusercontent.com/sutanlab/point-of-sales-frontend/master/capture/statistic.png)](https://raw.githubusercontent.com/sutanlab/point-of-sales-frontend/master/capture/statistic.png)
 
 ---
